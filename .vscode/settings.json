@@ -1,4 +1,12 @@
 {
+  "editor.quickSuggestions": true,
+  "editor.suggestOnTriggerCharacters": true,
+  "typescript.suggest.autoImports": true,
+  "javascript.suggest.autoImports": true,
+  "github.copilot.enable": {
+    "*": false
+  },
+  "github.copilot.inlineSuggest.enable": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",

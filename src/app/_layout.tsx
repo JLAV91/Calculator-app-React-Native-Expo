@@ -1,18 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { globalStyles } from '@/styles/global-styles'
+import { useFonts } from 'expo-font'
+import { Slot } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import { Text, View } from 'react-native'
+const RootLayout = () => {
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+  const [loaded] = useFonts({
+    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+  })
 
-SplashScreen.preventAutoHideAsync();
+  if(!loaded){
+    return null
+  }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
-  );
+    <View style= {globalStyles.Background}>
+      <Text>RootLayout</Text>
+
+      <Slot/>
+      <StatusBar style = "light"/>
+    </View>
+  )
 }
+
+export default RootLayout
