@@ -6,19 +6,19 @@ import { Text, View } from 'react-native'
 const RootLayout = () => {
 
   const [loaded] = useFonts({
-    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   })
 
-  if(!loaded){
+  if (!loaded) {
     return null
   }
 
   return (
-    <View style= {globalStyles.Background}>
+    <View style={globalStyles.Background}>
       <Text>RootLayout</Text>
 
-      <Slot/>
-      <StatusBar style = "light"/>
+      <Slot />
+      <StatusBar style="light" />
     </View>
   )
 }
