@@ -1,8 +1,11 @@
-import { globalStyles } from '@/styles/global-styles'
-import { useFonts } from 'expo-font'
-import { Slot } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
-import { Text, View } from 'react-native'
+
+import { globalStyles } from '@/styles/global-styles';
+import { useFonts } from 'expo-font';
+import { Slot } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { Text, View } from 'react-native';
+
+
 const RootLayout = () => {
 
   const [loaded] = useFonts({
