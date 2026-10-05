@@ -1,6 +1,6 @@
 import CalculatorButton from '@/components/CalculatorButton'
 import { Colors } from '@/constants/theme'
-import { useCalculator } from '@/hooks/usaCAlculator'
+import { useCalculator } from '@/hooks/useCalculator'
 import { globalStyles } from '@/styles/global-styles'
 import { View } from 'react-native'
 import ThemeText from '../components/ThemeText'
@@ -18,6 +18,7 @@ const CalculatorApp = () => {
     multiplyOperator,
     subtractOperator,
     addOperator,
+    calculateResult,
   } = useCalculator();
 
   return (
@@ -66,7 +67,7 @@ const CalculatorApp = () => {
         {/** Botón 1 */}
         <CalculatorButton label='0' doubleSize onPress={() => buildNumber('0')} />
         <CalculatorButton label='.' onPress={() => buildNumber('.')} />
-        <CalculatorButton label='=' color={Colors.orange} onPress={() => console.log('=')} />
+        <CalculatorButton label='=' color={Colors.orange} onPress={calculateResult} />
       </View>
     </View>
   )

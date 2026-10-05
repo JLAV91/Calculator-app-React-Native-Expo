@@ -14,11 +14,21 @@ export const useCalculator = () => {
     const [prevNumber, setPrevNumber] = useState('0');
 
     const lastOperation = useRef<Operator | undefined>(undefined);
+    const isNewEntry = useRef(false);
 
     useEffect(() => {
-        //TODO: Calcular subResultado
-        setFormula(number);
-    }, [number]);
+        if (lastOperation.current) {
+            const firstFormulaPart = formula.split(' ').at(0);
+            setFormula(`${firstFormulaPart} ${lastOperation.current} ${number}`);
+        } else {
+            setFormula(number)
+        }
+    }, [number])
+
+    useEffect(() => {
+        const subResult = calculateSubResult();
+        setPrevNumber(`${subResult}`)
+    }, [formula]);
 
     const clean = () => {
         setFormula('0');
@@ -45,8 +55,7 @@ export const useCalculator = () => {
     }
 
     const setLastNumber = () => {
-        //Todo: calculate result
-
+        calculateResult();
         if (number.endsWith('.')) {
             setPrevNumber(number.slice(0, -1));
         }
@@ -71,7 +80,48 @@ export const useCalculator = () => {
         lastOperation.current = Operator.add
     }
 
+    const calculateSubResult = () => {
+        const [firstValue, operation, secondValue] = formula.split(' ');
+
+        const num1 = Number(firstValue);
+        const num2 = Number(secondValue);
+
+        if (isNaN(num2)) return num1;
+
+        switch (operation) {
+            case Operator.add:
+                return num1 + num2;
+
+            case Operator.subtract:
+                return num1 - num2;
+
+            case Operator.multiply:
+                return num1 * num2;
+
+            case Operator.divide:
+                return num1 / num2;
+
+            default:
+                throw new Error(`operation ${operation} not implemented`);
+        }
+    }
+
+    const calculateResult = () => {
+        const results = calculateSubResult();
+        setFormula(`${results}`);
+
+        lastOperation.current = undefined;
+        setPrevNumber('0');
+        isNewEntry.current = true;
+        console.log('prevNumber: ' + prevNumber)
+        console.log('number:' + number)
+    }
+
     const buildNumber = (numberString: string) => {
+        if (isNewEntry.current) {
+            isNewEntry.current = false;
+            return setNumber(numberString === '.' ? '0.' : numberString);
+        }
 
         //Verificar si ya existe el punto decimal
         if (number.includes('.') && numberString == '.') return;
@@ -114,7 +164,9 @@ export const useCalculator = () => {
         divideOperator,
         multiplyOperator,
         subtractOperator,
-        addOperator
+        addOperator,
+        calculateSubResult,
+        calculateResult
     }
 
 }
